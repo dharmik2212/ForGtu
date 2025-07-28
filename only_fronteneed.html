@@ -9,6 +9,16 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    html, body {
+      height: 100%;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    .content {
+      flex: 1 0 auto;
+    }
     .papers-container {
       max-height: 400px;
       overflow-y: auto;
@@ -22,6 +32,24 @@
     .hidden {
       display: none;
     }
+    footer {
+      background-color: #0d6efd;
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      flex-shrink: 0;
+    }
+    .social-links a {
+      color: white;
+      margin-right: 1rem;
+      font-size: 1.25rem;
+      transition: opacity 0.3s;
+    }
+    .social-links a:hover {
+      opacity: 0.8;
+      color: white;
+      text-decoration: none;
+    }
     @media (max-width: 576px) {
       .mode-switcher {
         top: 10px;
@@ -31,166 +59,174 @@
         padding: 0.25rem 0.5rem;
         font-size: 0.875rem;
       }
+      footer {
+        padding: 1.5rem 0;
+        text-align: center;
+      }
+      .social-links {
+        margin-top: 1rem;
+      }
     }
   </style>
 </head>
 <body class="bg-light text-dark">
+  <div class="content">
+    <!-- Mode Switcher -->
+    <div class="mode-switcher btn-group shadow-sm" role="group">
+      <button type="button" id="papersModeBtn" class="btn btn-primary active">
+        <i class="fas fa-file-pdf me-1"></i> Papers
+      </button>
+      <button type="button" id="syllabusModeBtn" class="btn btn-outline-primary">
+        <i class="fas fa-book me-1"></i> Syllabus
+      </button>
+    </div>
 
-  <!-- Mode Switcher -->
-  <div class="mode-switcher btn-group shadow-sm" role="group">
-    <button type="button" id="papersModeBtn" class="btn btn-primary active">
-      <i class="fas fa-file-pdf me-1"></i> Papers
-    </button>
-    <button type="button" id="syllabusModeBtn" class="btn btn-outline-primary">
-      <i class="fas fa-book me-1"></i> Syllabus
-    </button>
-  </div>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm rounded-4 border-0">
+            <div class="card-body p-4">
+              <h2 class="card-title text-center mb-4 text-primary" id="formTitle">GTU Papers URL Generator</h2>
 
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6">
-        <div class="card shadow-sm rounded-4 border-0">
-          <div class="card-body p-4">
-            <h2 class="card-title text-center mb-4 text-primary" id="formTitle">GTU Papers URL Generator</h2>
+              <!-- Papers Form -->
+              <form id="pdfForm" class="mode-content">
+                <div class="mb-3">
+                  <label for="season" class="form-label">Season (e.g., W2024)</label>
+                  <input type="text" id="season" class="form-control" required>
+                </div>
 
-            <!-- Papers Form -->
-            <form id="pdfForm" class="mode-content">
-              <div class="mb-3">
-                <label for="season" class="form-label">Season (e.g., W2024)</label>
-                <input type="text" id="season" class="form-control" required>
-              </div>
+                <div class="mb-3">
+                  <label for="degree" class="form-label">Degree</label>
+                  <div class="input-group">
+                    <select id="degree" class="form-select" required>
+                      <option value="" selected disabled>Select Degree</option>
+                      <option value="AF">AF</option>
+                      <option value="BA">BA</option>
+                      <option value="BB">BB</option>
+                      <option value="BC">BC</option>
+                      <option value="BD">BD</option>
+                      <option value="BE">BE</option>
+                      <option value="BESP">BESP</option>
+                      <option value="BH">BH</option>
+                      <option value="BI">BI</option>
+                      <option value="BL">BL</option>
+                      <option value="BM">BM</option>
+                      <option value="BN">BN</option>
+                      <option value="BP">BP</option>
+                      <option value="BPSP">BPSP</option>
+                      <option value="BS">BS</option>
+                      <option value="BT">BT</option>
+                      <option value="BV">BV</option>
+                      <option value="CI">CI</option>
+                      <option value="CS">CS</option>
+                      <option value="DA">DA</option>
+                      <option value="DB">DB</option>
+                      <option value="DH">DH</option>
+                      <option value="DI">DI</option>
+                      <option value="DISP">DISP</option>
+                      <option value="DM">DM</option>
+                      <option value="DP">DP</option>
+                      <option value="DS">DS</option>
+                      <option value="DV">DV</option>
+                      <option value="EP">EP</option>
+                      <option value="FD">FD</option>
+                      <option value="HM">HM</option>
+                      <option value="IB">IB</option>
+                      <option value="IC">IC</option>
+                      <option value="IM">IM</option>
+                      <option value="MA">MA</option>
+                      <option value="MB">MB</option>
+                      <option value="MC">MC</option>
+                      <option value="MCSP">MCSP</option>
+                      <option value="MD">MD</option>
+                      <option value="ME">ME</option>
+                      <option value="MH">MH</option>
+                      <option value="ML">ML</option>
+                      <option value="MN">MN</option>
+                      <option value="MP">MP</option>
+                      <option value="MR">MR</option>
+                      <option value="MS">MS</option>
+                      <option value="MT">MT</option>
+                      <option value="MV">MV</option>
+                      <option value="PB">PB</option>
+                      <option value="PD">PD</option>
+                      <option value="PH">PH</option>
+                      <option value="PM">PM</option>
+                      <option value="PP">PP</option>
+                      <option value="PR">PR</option>
+                      <option value="TE">TE</option>
+                      <option value="VP">VP</option>
+                    </select>
+                    <button type="button" id="getAllPapers" class="btn btn-primary">
+                      <i class="fas fa-copy me-1"></i> Get All Papers
+                    </button>
+                  </div>
+                </div>
 
-              <div class="mb-3">
-                <label for="degree" class="form-label">Degree</label>
-                <div class="input-group">
-                  <select id="degree" class="form-select" required>
-                  <option value="" selected disabled>Select Degree</option>
-                  <option value="AF">AF</option>
-                  <option value="BA">BA</option>
-                  <option value="BB">BB</option>
-                  <option value="BC">BC</option>
-                  <option value="BD">BD</option>
-                  <option value="BE">BE</option>
-                  <option value="BESP">BESP</option>
-                  <option value="BH">BH</option>
-                  <option value="BI">BI</option>
-                  <option value="BL">BL</option>
-                  <option value="BM">BM</option>
-                  <option value="BN">BN</option>
-                  <option value="BP">BP</option>
-                  <option value="BPSP">BPSP</option>
-                  <option value="BS">BS</option>
-                  <option value="BT">BT</option>
-                  <option value="BV">BV</option>
-                  <option value="CI">CI</option>
-                  <option value="CS">CS</option>
-                  <option value="DA">DA</option>
-                  <option value="DB">DB</option>
-                  <option value="DH">DH</option>
-                  <option value="DI">DI</option>
-                  <option value="DISP">DISP</option>
-                  <option value="DM">DM</option>
-                  <option value="DP">DP</option>
-                  <option value="DS">DS</option>
-                  <option value="DV">DV</option>
-                  <option value="EP">EP</option>
-                  <option value="FD">FD</option>
-                  <option value="HM">HM</option>
-                  <option value="IB">IB</option>
-                  <option value="IC">IC</option>
-                  <option value="IM">IM</option>
-                  <option value="MA">MA</option>
-                  <option value="MB">MB</option>
-                  <option value="MC">MC</option>
-                  <option value="MCSP">MCSP</option>
-                  <option value="MD">MD</option>
-                  <option value="ME">ME</option>
-                  <option value="MH">MH</option>
-                  <option value="ML">ML</option>
-                  <option value="MN">MN</option>
-                  <option value="MP">MP</option>
-                  <option value="MR">MR</option>
-                  <option value="MS">MS</option>
-                  <option value="MT">MT</option>
-                  <option value="MV">MV</option>
-                  <option value="PB">PB</option>
-                  <option value="PD">PD</option>
-                  <option value="PH">PH</option>
-                  <option value="PM">PM</option>
-                  <option value="PP">PP</option>
-                  <option value="PR">PR</option>
-                  <option value="TE">TE</option>
-                  <option value="VP">VP</option>
-                </select>
-                  <button type="button" id="getAllPapers" class="btn btn-primary">
-                    <i class="fas fa-copy me-1"></i> Get All Papers
+                <div class="mb-3">
+                  <label for="subject_code" class="form-label">Subject Code (e.g., 3160716)</label>
+                  <input type="text" id="subject_code" class="form-control" required>
+                </div>
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-download me-1"></i> Get PDF
                   </button>
                 </div>
-              </div>
+              </form>
 
-              <div class="mb-3">
-                <label for="subject_code" class="form-label">Subject Code (e.g., 3160716)</label>
-                <input type="text" id="subject_code" class="form-control" required>
-              </div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-download me-1"></i> Get PDF
-                </button>
-              </div>
-            </form>
-
-            <!-- Syllabus Form -->
-            <form id="syllabusForm" class="mode-content hidden">
-              <div class="mb-3">
-                <label for="syllabus_subject_code" class="form-label">Subject Code (e.g., 3160716)</label>
-                <input type="text" id="syllabus_subject_code" class="form-control" required>
-              </div>
-
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-download me-1"></i> Get Syllabus
-                </button>
-              </div>
-            </form>
-
-            <!-- Papers Results -->
-            <div id="allPapersResult" class="mt-4 d-none">
-              <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                  <h5 class="mb-0">All Available Papers</h5>
+              <!-- Syllabus Form -->
+              <form id="syllabusForm" class="mode-content hidden">
+                <div class="mb-3">
+                  <label for="syllabus_subject_code" class="form-label">Subject Code (e.g., 3160716)</label>
+                  <input type="text" id="syllabus_subject_code" class="form-control" required>
                 </div>
-                <div class="card-body papers-container">
-                  <div id="papersList" class="list-group">
-                    <!-- Papers will be added here dynamically -->
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-download me-1"></i> Get Syllabus
+                  </button>
+                </div>
+              </form>
+
+              <!-- Papers Results -->
+              <div id="allPapersResult" class="mt-4 d-none">
+                <div class="card shadow-sm">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">All Available Papers</h5>
+                  </div>
+                  <div class="card-body papers-container">
+                    <div id="papersList" class="list-group">
+                      <!-- Papers will be added here dynamically -->
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Syllabus Results -->
-            <div id="syllabusResult" class="alert alert-primary mt-4 d-none">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <strong id="syllabusResultTitle">Syllabus Found!</strong>
-                  <div class="text-muted small" id="syllabusSubjectCode"></div>
+              <!-- Syllabus Results -->
+              <div id="syllabusResult" class="alert alert-primary mt-4 d-none">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong id="syllabusResultTitle">Syllabus Found!</strong>
+                    <div class="text-muted small" id="syllabusSubjectCode"></div>
+                  </div>
+                  <a id="syllabusLink" href="#" target="_blank" class="btn btn-primary btn-sm">
+                    <i class="fas fa-download me-1"></i> Download
+                  </a>
                 </div>
-                <a id="syllabusLink" href="#" target="_blank" class="btn btn-primary btn-sm">
-                  <i class="fas fa-download me-1"></i> Download
-                </a>
               </div>
-            </div>
 
-            <!-- Single PDF Result -->
-            <div id="result" class="alert alert-primary mt-4 d-none">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <strong id="resultTitle">Paper Found!</strong>
-                  <div class="text-muted small" id="resultDetails"></div>
+              <!-- Single PDF Result -->
+              <div id="result" class="alert alert-primary mt-4 d-none">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong id="resultTitle">Paper Found!</strong>
+                    <div class="text-muted small" id="resultDetails"></div>
+                  </div>
+                  <a id="pdfLink" href="#" target="_blank" class="btn btn-primary btn-sm">
+                    <i class="fas fa-download me-1"></i> Download
+                  </a>
                 </div>
-                <a id="pdfLink" href="#" target="_blank" class="btn btn-primary btn-sm">
-                  <i class="fas fa-download me-1"></i> Download
-                </a>
               </div>
             </div>
           </div>
@@ -198,6 +234,28 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="mb-2">Designed by Dharmik Tarpada</p>
+          <div class="social-links">
+            <a href="https://github.com/dharmik2212" target="_blank" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/dharmik_tarpada/" target="_blank" title="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://in.linkedin.com/in/dharmik-tarpada-439396272" target="_blank" title="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -341,6 +399,22 @@
       // Scroll to the result
       document.getElementById('syllabusResult').scrollIntoView({ behavior: 'smooth' });
     });
+ 
+// Disable right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Disable F12, Ctrl+Shift+I, Ctrl+U
+document.onkeydown = function(e) {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && e.key === "I") || // Chrome/Firefox/Edge DevTools
+    (e.ctrlKey && e.key === "U") // View Source
+  ) {
+    e.preventDefault();
+    alert("Developer tools are disabled!");
+    return false;
+  }
+}
   </script>
 </body>
 </html>
